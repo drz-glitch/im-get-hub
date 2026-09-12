@@ -35,20 +35,24 @@
     text-align:center;
   }
   .mark{
-    width:150px;height:150px;
+    width:168px;height:168px;
     margin:0 auto 28px;
     display:block;
-    filter:drop-shadow(0 10px 30px rgba(63,185,80,.25));
+    filter:drop-shadow(0 10px 30px rgba(88,166,255,.22));
     animation:float 5s ease-in-out infinite;
   }
   @keyframes float{
     0%,100%{transform:translateY(0)}
     50%{transform:translateY(-10px)}
   }
-  .mark .blink{animation:blink 4.5s infinite}
-  @keyframes blink{
-    0%,92%,100%{transform:scaleY(1)}
-    95%{transform:scaleY(.08)}
+  .mark .draw{
+    stroke-dasharray:1;
+    stroke-dashoffset:1;
+    animation:draw 2.2s ease-out forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){
+    .mark,.mark .draw{animation:none;stroke-dashoffset:0}
   }
   h1{
     font-size:clamp(2.2rem,8vw,3.4rem);
@@ -112,37 +116,31 @@
 <body>
   <main class="card">
 
-    <svg class="mark" viewBox="0 0 200 200" role="img" aria-label="Cat mark">
-      <defs>
-        <linearGradient id="fur" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#e6edf3"/>
-          <stop offset="100%" stop-color="#a9b4c0"/>
-        </linearGradient>
-      </defs>
-      <!-- ears -->
-      <path d="M42 74 L46 26 L86 52 Z" fill="url(#fur)"/>
-      <path d="M158 74 L154 26 L114 52 Z" fill="url(#fur)"/>
-      <path d="M53 66 L55 41 L76 57 Z" fill="#f0a3a3"/>
-      <path d="M147 66 L145 41 L124 57 Z" fill="#f0a3a3"/>
-      <!-- head -->
-      <ellipse cx="100" cy="108" rx="62" ry="54" fill="url(#fur)"/>
-      <!-- eyes -->
-      <g class="blink" style="transform-origin:78px 100px">
-        <ellipse cx="78" cy="100" rx="9" ry="12" fill="#0d1117"/>
-        <circle cx="81" cy="95" r="3" fill="#fff"/>
-      </g>
-      <g class="blink" style="transform-origin:122px 100px">
-        <ellipse cx="122" cy="100" rx="9" ry="12" fill="#0d1117"/>
-        <circle cx="125" cy="95" r="3" fill="#fff"/>
-      </g>
-      <!-- nose + mouth -->
-      <path d="M94 122 L106 122 L100 129 Z" fill="#f0a3a3"/>
-      <path d="M100 129 q-8 9 -15 2" stroke="#0d1117" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M100 129 q8 9 15 2" stroke="#0d1117" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <!-- whiskers -->
-      <g stroke="#0d1117" stroke-width="2.5" stroke-linecap="round" opacity=".55">
-        <path d="M62 116 L26 110"/><path d="M62 124 L26 128"/>
-        <path d="M138 116 L174 110"/><path d="M138 124 L174 128"/>
+    <svg class="mark" viewBox="0 0 200 200" role="img" aria-label="Line-art cat">
+      <g fill="none" stroke="#e6edf3" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- tail -->
+        <path class="draw" pathLength="1" d="M156 174 C186 174 194 150 176 140 C167 135 157 141 158 152"/>
+        <!-- body + head outline -->
+        <path class="draw" pathLength="1" d="M68 78 L66 40 L88 64 C96 60 104 60 112 64 L134 40 L132 78
+          C140 92 140 106 130 116 C146 128 156 150 156 174 L44 174
+          C44 150 54 128 70 116 C60 106 60 92 68 78 Z"/>
+        <!-- inner ears -->
+        <path class="draw" pathLength="1" d="M73 52 L73 68 L84 66 Z" stroke-width="2.4" opacity=".65"/>
+        <path class="draw" pathLength="1" d="M127 52 L127 68 L116 66 Z" stroke-width="2.4" opacity=".65"/>
+        <!-- eyes -->
+        <path class="draw" pathLength="1" d="M78 93 c4 7 12 7 16 0"/>
+        <path class="draw" pathLength="1" d="M106 93 c4 7 12 7 16 0"/>
+        <!-- nose + mouth -->
+        <path class="draw" pathLength="1" d="M96 106 l4 4 l4 -4" stroke-width="2.8"/>
+        <path class="draw" pathLength="1" d="M100 110 c0 6 -7 8 -11 4" stroke-width="2.6"/>
+        <path class="draw" pathLength="1" d="M100 110 c0 6 7 8 11 4" stroke-width="2.6"/>
+        <!-- whiskers -->
+        <g stroke-width="2.2" opacity=".5">
+          <path class="draw" pathLength="1" d="M72 102 L34 96"/>
+          <path class="draw" pathLength="1" d="M72 110 L32 112"/>
+          <path class="draw" pathLength="1" d="M128 102 L166 96"/>
+          <path class="draw" pathLength="1" d="M128 110 L168 112"/>
+        </g>
       </g>
     </svg>
 
